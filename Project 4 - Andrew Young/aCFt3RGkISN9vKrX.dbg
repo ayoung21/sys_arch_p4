@@ -10,60 +10,88 @@
         </Label>
         <Label>
             <LabelText>PROGRAM_END</LabelText>
-            <LabelValue>2348</LabelValue>
+            <LabelValue>2341</LabelValue>
+        </Label>
+        <Label>
+            <LabelText>COUNTER</LabelText>
+            <LabelValue>2342</LabelValue>
+        </Label>
+        <Label>
+            <LabelText>SETUP_INTERRUPT</LabelText>
+            <LabelValue>2343</LabelValue>
+        </Label>
+        <Label>
+            <LabelText>ANIMATION_ROUTINE</LabelText>
+            <LabelValue>2356</LabelValue>
+        </Label>
+        <Label>
+            <LabelText>LOOK_STRAIGHT</LabelText>
+            <LabelValue>2382</LabelValue>
+        </Label>
+        <Label>
+            <LabelText>LOOK_RIGHT</LabelText>
+            <LabelValue>2390</LabelValue>
+        </Label>
+        <Label>
+            <LabelText>LOOK_LEFT</LabelText>
+            <LabelValue>2398</LabelValue>
+        </Label>
+        <Label>
+            <LabelText>JUMP_TO_HANDLER</LabelText>
+            <LabelValue>2406</LabelValue>
         </Label>
         <Label>
             <LabelText>LOAD_FRONT_EYE_DATA</LabelText>
-            <LabelValue>2349</LabelValue>
+            <LabelValue>2410</LabelValue>
         </Label>
         <Label>
             <LabelText>sprite_loop</LabelText>
-            <LabelValue>2351</LabelValue>
+            <LabelValue>2412</LabelValue>
         </Label>
         <Label>
             <LabelText>LOAD_LEFT_EYE_DATA</LabelText>
-            <LabelValue>2361</LabelValue>
+            <LabelValue>2422</LabelValue>
         </Label>
         <Label>
             <LabelText>sprite_loop_left</LabelText>
-            <LabelValue>2363</LabelValue>
+            <LabelValue>2424</LabelValue>
         </Label>
         <Label>
             <LabelText>LOAD_RIGHT_EYE_DATA</LabelText>
-            <LabelValue>2373</LabelValue>
+            <LabelValue>2434</LabelValue>
         </Label>
         <Label>
             <LabelText>sprite_loop_right</LabelText>
-            <LabelValue>2375</LabelValue>
+            <LabelValue>2436</LabelValue>
         </Label>
         <Label>
             <LabelText>SET_X_LOCATION</LabelText>
-            <LabelValue>2385</LabelValue>
+            <LabelValue>2446</LabelValue>
         </Label>
         <Label>
             <LabelText>SET_Y_LOCATION</LabelText>
-            <LabelValue>2397</LabelValue>
+            <LabelValue>2458</LabelValue>
         </Label>
         <Label>
             <LabelText>SET_SPRITE_COLOR</LabelText>
-            <LabelValue>2401</LabelValue>
+            <LabelValue>2462</LabelValue>
         </Label>
         <Label>
             <LabelText>EYE_FRONT_DATA</LabelText>
-            <LabelValue>2405</LabelValue>
+            <LabelValue>2466</LabelValue>
         </Label>
         <Label>
             <LabelText>EYE_LEFT_DATA</LabelText>
-            <LabelValue>2469</LabelValue>
+            <LabelValue>2530</LabelValue>
         </Label>
         <Label>
             <LabelText>EYE_RIGHT_DATA</LabelText>
-            <LabelValue>2533</LabelValue>
+            <LabelValue>2594</LabelValue>
         </Label>
     </Labels>
     <DebuggerStartAddress>-1</DebuggerStartAddress>
     <WatchList />
     <Breakpoints />
     <LONGAITransitions />
-    <Binary>DggKAJ4gKDIzMDQpAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIC0JqbqN+AepASBhCaksIFEJqTwgXQkgOQmpu435ByBFCam8jfoHqQGNFdBgoj+9ZQmdgC7K0Pdgoj+9pQmdwC7K0Pdgoj+95QmdAC/K0PdgjQDQrRDQCQGNENBgjQHQYI0n0GAAfgADgcAMfjAT/8gv//Qv//Rf//pfw/pfgfq/AP2/AP2/AP1fgfpfw/pf//ov//Qv//QT/8gMfjADgcAAfgAAAH4AA4HADH4wE//IL//0L//0X//6XH/6WD/6uD/9uD/9uD/9WD/6XH/6X//6L//0L//0E//IDH4wA4HAAH4AAAB+AAOBwAx+MBP/yC//9C//9F//+l/+Ol/8Gr/8Hb/8Hb/8HV/8Gl/+Ol//+i//9C//9BP/yAx+MAOBwAB+AAA=</Binary>
+    <Binary>DggKAJ4gKDIzMDQpAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAICcJIGoJIHYJIIIJqbqN+AepASCeCaksII4JqTwgmgmpAY0V0GAAeKk0jRQDqQmNFQNYYK4mCeiOJgngAPAf4EDwC+CA8A/gwPADIGYJqbqN+AcgZgmpvI34ByBmCam7jfgHIGYJTDHqYKI/vaIJnYAuyhD3YKI/veIJncAuyhD3YKI/vSIKnQAvyhD3YI0A0K0Q0AkBjRDQYI0B0GCNJ9BgAH4AA4HADH4wE//IL//0L//0X//6X8P6X4H6vwD9vwD9vwD9X4H6X8P6X//6L//0L//0E//IDH4wA4HAAH4AAAB+AAOBwAx+MBP/yC//9C//9F//+lx/+lg/+rg//bg//bg//Vg/+lx/+l//+i//9C//9BP/yAx+MAOBwAB+AAAAfgADgcAMfjAT/8gv//Qv//Rf//pf/jpf/Bq//B2//B2//B1f/Bpf/jpf//ov//Qv//QT/8gMfjADgcAAfgAA</Binary>
 </DebugInfo>
