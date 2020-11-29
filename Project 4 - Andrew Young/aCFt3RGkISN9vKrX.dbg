@@ -10,92 +10,92 @@
         </Label>
         <Label>
             <LabelText>PROGRAM_END</LabelText>
-            <LabelValue>2339</LabelValue>
+            <LabelValue>2351</LabelValue>
         </Label>
         <Label>
             <LabelText>COUNTER</LabelText>
-            <LabelValue>2340</LabelValue>
+            <LabelValue>2352</LabelValue>
         </Label>
         <Label>
             <LabelText>SETUP_INTERRUPT</LabelText>
-            <LabelValue>2341</LabelValue>
+            <LabelValue>2353</LabelValue>
         </Label>
         <Label>
             <LabelText>ANIMATION_ROUTINE</LabelText>
-            <LabelValue>2354</LabelValue>
+            <LabelValue>2366</LabelValue>
         </Label>
         <Label>
             <LabelText>JUMP_TO_HANDLER</LabelText>
-            <LabelValue>2381</LabelValue>
+            <LabelValue>2393</LabelValue>
         </Label>
         <Label>
             <LabelText>LOOK_STRAIGHT_BEGINNING</LabelText>
-            <LabelValue>2385</LabelValue>
+            <LabelValue>2396</LabelValue>
         </Label>
         <Label>
             <LabelText>LOOK_STRAIGHT</LabelText>
-            <LabelValue>2391</LabelValue>
+            <LabelValue>2402</LabelValue>
         </Label>
         <Label>
             <LabelText>LOOK_RIGHT</LabelText>
-            <LabelValue>2399</LabelValue>
+            <LabelValue>2410</LabelValue>
         </Label>
         <Label>
             <LabelText>LOOK_LEFT</LabelText>
-            <LabelValue>2407</LabelValue>
+            <LabelValue>2418</LabelValue>
         </Label>
         <Label>
             <LabelText>LOAD_FRONT_EYE_DATA</LabelText>
-            <LabelValue>2415</LabelValue>
+            <LabelValue>2426</LabelValue>
         </Label>
         <Label>
             <LabelText>sprite_loop</LabelText>
-            <LabelValue>2417</LabelValue>
+            <LabelValue>2428</LabelValue>
         </Label>
         <Label>
             <LabelText>LOAD_LEFT_EYE_DATA</LabelText>
-            <LabelValue>2427</LabelValue>
+            <LabelValue>2438</LabelValue>
         </Label>
         <Label>
             <LabelText>sprite_loop_left</LabelText>
-            <LabelValue>2429</LabelValue>
+            <LabelValue>2440</LabelValue>
         </Label>
         <Label>
             <LabelText>LOAD_RIGHT_EYE_DATA</LabelText>
-            <LabelValue>2439</LabelValue>
+            <LabelValue>2450</LabelValue>
         </Label>
         <Label>
             <LabelText>sprite_loop_right</LabelText>
-            <LabelValue>2441</LabelValue>
+            <LabelValue>2452</LabelValue>
         </Label>
         <Label>
             <LabelText>SET_X_LOCATION</LabelText>
-            <LabelValue>2451</LabelValue>
+            <LabelValue>2462</LabelValue>
         </Label>
         <Label>
             <LabelText>SET_Y_LOCATION</LabelText>
-            <LabelValue>2463</LabelValue>
+            <LabelValue>2474</LabelValue>
         </Label>
         <Label>
             <LabelText>SET_SPRITE_COLOR</LabelText>
-            <LabelValue>2467</LabelValue>
+            <LabelValue>2478</LabelValue>
         </Label>
         <Label>
             <LabelText>EYE_FRONT_DATA</LabelText>
-            <LabelValue>2471</LabelValue>
+            <LabelValue>2482</LabelValue>
         </Label>
         <Label>
             <LabelText>EYE_LEFT_DATA</LabelText>
-            <LabelValue>2535</LabelValue>
+            <LabelValue>2546</LabelValue>
         </Label>
         <Label>
             <LabelText>EYE_RIGHT_DATA</LabelText>
-            <LabelValue>2599</LabelValue>
+            <LabelValue>2610</LabelValue>
         </Label>
     </Labels>
     <DebuggerStartAddress>-1</DebuggerStartAddress>
     <WatchList />
     <Breakpoints />
     <LONGAITransitions />
-    <Binary>DggKAJ4gKDIzMDQpAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAICUJIG8JIHsJIIcJIFEJqQEgowmpLSCTCak8IJ8JqQGNFdBgAHipMo0UA6kJjRUDWGCtJAlpAY0kCckA8CnJQPAVyYDwGcnA8A0gTQlMMepgqbqN+AdgqbqN+AcgTQmp6I34ByBNCam8jfgHIE0Joj+9pwmdgC7KEPdgoj+95wmdAC/KEPdgoj+9JwqdADrKEPdgjQDQrQDQCQGNENBgjQHQYI0n0GAAfgADgcAMfjAT/8gv//Qv//Rf//pfw/pfgfq/AP2/AP2/AP1fgfpfw/pf//ov//Qv//QT/8gMfjADgcAAfgAAAH4AA4HADH4wE//IL//0L//0X//6XH/6WD/6uD/9uD/9uD/9WD/6XH/6X//6L//0L//0E//IDH4wA4HAAH4AAAB+AAOBwAx+MBP/yC//9C//9F//+l/+Ol/8Gr/8Hb/8Hb/8HV/8Gl/+Ol//+i//9C//9BP/yAx+MAOBwAB+AAA=</Binary>
+    <Binary>DggKAJ4gKDIzMDQpAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIDEJIHoJIIYJIJIJqbqN+AepASCuCaktIJ4JqTwgqgmpvI34B6nojfoHqQGNFdBgAHipPo0UA6kJjRUDWGCtMAlpAY0wCckA8CjJQPAUyYDwGMnA8AxMWQlMMeqpuo34B2Cpuo34B0wx6qnojfgHTDHqqbyN+AdMMeqiP72yCZ2ALsoQ92CiP73yCZ0AL8oQ92CiP70yCp0AOsoQ92CNANCtANAJAY0Q0GCNAdBgjSfQYAB+AAOBwAx+MBP/yC//9C//9F//+l/D+l+B+r8A/b8A/b8A/V+B+l/D+l//+i//9C//9BP/yAx+MAOBwAB+AAAAfgADgcAMfjAT/8gv//Qv//Rf//pcf/pYP/q4P/24P/24P/1YP/pcf/pf//ov//Qv//QT/8gMfjADgcAAfgAAAH4AA4HADH4wE//IL//0L//0X//6X/46X/wav/wdv/wdv/wdX/waX/46X//6L//0L//0E//IDH4wA4HAAH4AAA==</Binary>
 </DebugInfo>

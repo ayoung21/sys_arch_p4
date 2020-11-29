@@ -18,9 +18,9 @@ PROGRAM_START
         JSR LOAD_RIGHT_EYE_DATA
 
         ; set sprite pointers
-        ; LDA #$2E80/64
-        ; STA $07F8
-        JSR LOOK_STRAIGHT_BEGINNING
+        LDA #$2E80/64
+        STA $07F8
+        ; JSR LOOK_STRAIGHT_BEGINNING
 
         LDA #1
         JSR SET_SPRITE_COLOR
@@ -31,13 +31,13 @@ PROGRAM_START
         LDA #60
         JSR SET_Y_LOCATION
 
-        
-        ; LDA #$2F00/64
-        ; STA $07F8
+        ; left eye
+        LDA #$2F00/64
+        STA $07F8
 
-
-        ; LDA #RIGHT_EYE_PIXLES/64
-        ; STA $07FA
+        ; right eye
+        LDA #$3A00/64
+        STA $07FA
 
         ; show sprites
         LDA #$0001
@@ -71,11 +71,10 @@ ANIMATION_ROUTINE
         BEQ LOOK_RIGHT
         CMP #192
         BEQ LOOK_STRAIGHT
-        JSR JUMP_TO_HANDLER
+        JMP JUMP_TO_HANDLER
 
 JUMP_TO_HANDLER
         JMP $EA31
-        RTS
 
 LOOK_STRAIGHT_BEGINNING
         LDA #$2E80/64
@@ -85,20 +84,17 @@ LOOK_STRAIGHT_BEGINNING
 LOOK_STRAIGHT
         LDA #$2E80/64
         STA $07F8
-        JSR JUMP_TO_HANDLER
+        JMP $EA31
 
 LOOK_RIGHT
         LDA #$3A00/64
         STA $07F8
-        JSR JUMP_TO_HANDLER
+        JMP $EA31
 
 LOOK_LEFT
         LDA #$2F00/64
         STA $07F8
-        JSR JUMP_TO_HANDLER
-
-;JUMP_TO_HANDLER
-;        JMP $EA31
+        JMP $EA31
 
 LOAD_FRONT_EYE_DATA
         LDX #63
