@@ -1,15 +1,15 @@
 ;labels
 al $0900 .PROGRAM_START
-al $092C .LOAD_FRONT_EYE_DATA
-al $092E .sprite_loop
-al $0938 .LOAD_LEFT_EYE_DATA
-al $093A .sprite_loop_left
-al $0944 .LOAD_RIGHT_EYE_DATA
-al $0946 .sprite_loop_right
-al $0950 .SET_X_LOCATION
-al $095C .SET_Y_LOCATION
-al $0960 .SET_SPRITE_COLOR
-al $0964 .PROGRAM_END
+al $092C .PROGRAM_END
+al $092D .LOAD_FRONT_EYE_DATA
+al $092F .sprite_loop
+al $0939 .LOAD_LEFT_EYE_DATA
+al $093B .sprite_loop_left
+al $0945 .LOAD_RIGHT_EYE_DATA
+al $0947 .sprite_loop_right
+al $0951 .SET_X_LOCATION
+al $095D .SET_Y_LOCATION
+al $0961 .SET_SPRITE_COLOR
 al $0965 .EYE_FRONT_DATA
 al $09A5 .EYE_LEFT_DATA
 al $09E5 .EYE_RIGHT_DATA

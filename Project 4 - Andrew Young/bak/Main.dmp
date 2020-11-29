@@ -10,80 +10,80 @@
 00010  0900             LEFT_EYE_PIXLES=FRONT_EYE_PIXELS+64 
 00011  0900             RIGHT_EYE_PIXLES=LEFT_EYE_PIXLES+64 
 00012  0900             PROGRAM_START 
-00013  0900  20 2D 09              JSR LOAD_FRONT_EYE_DATA
+00013  0900  20 2C 09              JSR LOAD_FRONT_EYE_DATA
 00014  0903             
-00015  0903                        ; SET SPRITE POINTERS
-00016  0903  A9 BA                 LDA #FRONT_EYE_PIXELS/64
-00017  0905  8D F8 07              STA $07F8
-00018  0908             
-00019  0908  A9 01                 LDA #1
-00020  090A  20 61 09              JSR SET_SPRITE_COLOR
-00021  090D             
-00022  090D  A9 2C                 LDA #44
-00023  090F  20 51 09              JSR SET_X_LOCATION
-00024  0912             
-00025  0912  A9 3C                 LDA #60
-00026  0914  20 5D 09              JSR SET_Y_LOCATION
-00027  0917             
-00028  0917                        ;; DELETE
-00029  0917  20 39 09              JSR LOAD_LEFT_EYE_DATA
-00030  091A  A9 BB                 LDA #LEFT_EYE_PIXLES/64
-00031  091C  8D F9 07              STA $07F9
-00032  091F             
-00033  091F  20 45 09              JSR LOAD_RIGHT_EYE_DATA
-00034  0922  A9 BC                 LDA #RIGHT_EYE_PIXLES/64
-00035  0924  8D FA 07              STA $07FA
-00036  0927                        ;; END OF DELETE
+00015  0903  A9 01                 LDA #1
+00016  0905  20 60 09              JSR SET_SPRITE_COLOR
+00017  0908             
+00018  0908  A9 2C                 LDA #44
+00019  090A  20 50 09              JSR SET_X_LOCATION
+00020  090D             
+00021  090D  A9 3C                 LDA #60
+00022  090F  20 5C 09              JSR SET_Y_LOCATION
+00023  0912             
+00024  0912                        ;; DELETE
+00025  0912  20 38 09              JSR LOAD_LEFT_EYE_DATA
+00026  0915  A9 BB                 LDA #LEFT_EYE_PIXLES/64
+00027  0917  8D F9 07              STA $07F9
+00028  091A             
+00029  091A  20 44 09              JSR LOAD_RIGHT_EYE_DATA
+00030  091D  A9 BC                 LDA #RIGHT_EYE_PIXLES/64
+00031  091F  8D FA 07              STA $07FA
+00032  0922                        ;; END OF DELETE
+00033  0922             
+00034  0922                        ; SET SPRITE POINTERS
+00035  0922  A9 BA                 LDA #FRONT_EYE_PIXELS/64
+00036  0924  8D FB 07              STA $07FB
 00037  0927             
 00038  0927                        ; SHOW SPRITES
 00039  0927  A9 01                 LDA #$0001
 00040  0929  8D 15 D0              STA $D015
 00041  092C             
-00042  092C             
-00043  092C             PROGRAM_END 
-00044  092C  60                    RTS
-00045  092D                        
-00046  092D             ; SUB-ROUTINES
-00047  092D             LOAD_FRONT_EYE_DATA 
-00048  092D  A2 3F                 LDX #63
-00049  092F             SPRITE_LOOP 
-00050  092F  BD 65 09              LDA EYE_FRONT_DATA,X
-00051  0932  9D 80 2E              STA FRONT_EYE_PIXELS,X
-00052  0935  CA                    DEX
-00053  0936  D0 F7                 BNE SPRITE_LOOP
-00054  0938  60                    RTS
-00055  0939             ; DELEETE
-00056  0939             LOAD_LEFT_EYE_DATA 
-00057  0939  A2 3F                 LDX #63
-00058  093B             SPRITE_LOOP_LEFT 
-00059  093B  BD A5 09              LDA EYE_LEFT_DATA,X
-00060  093E  9D C0 2E              STA LEFT_EYE_PIXLES,X
-00061  0941  CA                    DEX
-00062  0942  D0 F7                 BNE SPRITE_LOOP_LEFT
-00063  0944  60                    RTS
-00064  0945             
-00065  0945             LOAD_RIGHT_EYE_DATA 
-00066  0945  A2 3F                 LDX #63
-00067  0947             SPRITE_LOOP_RIGHT 
-00068  0947  BD E5 09              LDA EYE_RIGHT_DATA,X
-00069  094A  9D 00 2F              STA RIGHT_EYE_PIXLES,X
-00070  094D  CA                    DEX
-00071  094E  D0 F7                 BNE SPRITE_LOOP_RIGHT
-00072  0950  60                    RTS
-00073  0951             ; END OF DELETE
-00074  0951             
-00075  0951             SET_X_LOCATION 
-00076  0951  8D 00 D0              STA $D000       ; X POSITION SPRITE #0 SET ON 44
-00077  0954  AD 10 D0              LDA $D010       ; LOAD X-MSB
-00078  0957  09 01                 ORA #%00000001  ; SET EXTRA BIT FOR SPRITE #5
-00079  0959  8D 10 D0              STA $D010       ; WRITE X-MSB REGISTER
-00080  095C  60                    RTS
-00081  095D             SET_Y_LOCATION 
-00082  095D  8D 01 D0              STA $D001
-00083  0960  60                    RTS
-00084  0961             SET_SPRITE_COLOR 
-00085  0961  8D 27 D0              STA $D027
-00086  0964  60                    RTS
+00042  092C             ; SUB-ROUTINES
+00043  092C             LOAD_FRONT_EYE_DATA 
+00044  092C  A2 3F                 LDX #63
+00045  092E             SPRITE_LOOP 
+00046  092E  BD 65 09              LDA EYE_FRONT_DATA,X
+00047  0931  9D 80 2E              STA $2E80,X
+00048  0934  CA                    DEX
+00049  0935  D0 F7                 BNE SPRITE_LOOP
+00050  0937  60                    RTS
+00051  0938             ; DELEETE
+00052  0938             LOAD_LEFT_EYE_DATA 
+00053  0938  A2 3F                 LDX #63
+00054  093A             SPRITE_LOOP_LEFT 
+00055  093A  BD A5 09              LDA EYE_LEFT_DATA,X
+00056  093D  9D 80 2E              STA $2E80,X
+00057  0940  CA                    DEX
+00058  0941  D0 F7                 BNE SPRITE_LOOP_LEFT
+00059  0943  60                    RTS
+00060  0944             
+00061  0944             LOAD_RIGHT_EYE_DATA 
+00062  0944  A2 3F                 LDX #63
+00063  0946             SPRITE_LOOP_RIGHT 
+00064  0946  BD E5 09              LDA EYE_RIGHT_DATA,X
+00065  0949  9D 80 2E              STA $2E80,X
+00066  094C  CA                    DEX
+00067  094D  D0 F7                 BNE SPRITE_LOOP_RIGHT
+00068  094F  60                    RTS
+00069  0950             ; END OF DELETE
+00070  0950             
+00071  0950             SET_X_LOCATION 
+00072  0950  8D 00 D0              STA $D000       ; X POSITION SPRITE #0 SET ON 44
+00073  0953  AD 10 D0              LDA $D010       ; LOAD X-MSB
+00074  0956  09 01                 ORA #%00000001  ; SET EXTRA BIT FOR SPRITE #5
+00075  0958  8D 10 D0              STA $D010       ; WRITE X-MSB REGISTER
+00076  095B  60                    RTS
+00077  095C             SET_Y_LOCATION 
+00078  095C  8D 01 D0              STA $D001
+00079  095F  60                    RTS
+00080  0960             SET_SPRITE_COLOR 
+00081  0960  8D 27 D0              STA $D027
+00082  0963  60                    RTS
+00083  0964             
+00084  0964             PROGRAM_END 
+00085  0964  60                    RTS
+00086  0965                        
 00087  0965             
 00088  0965             
 00089  0965             
@@ -168,17 +168,17 @@
 EYE_FRONT_DATA = $0965 
 EYE_LEFT_DATA = $09A5 
 EYE_RIGHT_DATA = $09E5 
-LOAD_FRONT_EYE_DATA = $092D 
-LOAD_LEFT_EYE_DATA = $0939 
-LOAD_RIGHT_EYE_DATA = $0945 
-PROGRAM_END = $092C 
+LOAD_FRONT_EYE_DATA = $092C 
+LOAD_LEFT_EYE_DATA = $0938 
+LOAD_RIGHT_EYE_DATA = $0944 
+PROGRAM_END = $0964 
 PROGRAM_START = $0900 
-SET_SPRITE_COLOR = $0961 
-SET_X_LOCATION = $0951 
-SET_Y_LOCATION = $095D 
-sprite_loop = $092F 
-sprite_loop_left = $093B 
-sprite_loop_right = $0947 
+SET_SPRITE_COLOR = $0960 
+SET_X_LOCATION = $0950 
+SET_Y_LOCATION = $095C 
+sprite_loop = $092E 
+sprite_loop_left = $093A 
+sprite_loop_right = $0946 
 
 ******* 2 Unused label(s) *******
 PROGRAM_END

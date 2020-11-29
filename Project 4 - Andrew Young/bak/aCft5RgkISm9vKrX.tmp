@@ -1,4 +1,4 @@
-##{0:0:0:Main.prg}C:\Users\csuser\Desktop\Sys Arch\Project 4 - Andrew Young\Main.asm
+##{0:0:0:Main.prg}C:\Users\csuser\Desktop\Project 4 - Andrew Young\Main.asm
 
 ; 10 SYS (2304)
 
@@ -13,10 +13,6 @@ LEFT_EYE_PIXLES=FRONT_EYE_PIXELS+64
 RIGHT_EYE_PIXLES=LEFT_EYE_PIXLES+64
 PROGRAM_START
         JSR LOAD_FRONT_EYE_DATA
-
-        ; set sprite pointers
-        LDA #FRONT_EYE_PIXELS/64
-        STA $07F8
 
         LDA #1
         JSR SET_SPRITE_COLOR
@@ -37,20 +33,20 @@ PROGRAM_START
         STA $07FA
         ;; END OF DELETE
 
+        ; set sprite pointers
+        LDA #FRONT_EYE_PIXELS/64
+        STA $07FB
+
         ; show sprites
         LDA #$0001
         STA $D015
 
-
-PROGRAM_END
-        rts
-        
 ; SUB-ROUTINES
 LOAD_FRONT_EYE_DATA
         LDX #63
 sprite_loop
         LDA EYE_FRONT_DATA,X
-        STA FRONT_EYE_PIXELS,X
+        STA $2E80,X
         DEX
         BNE sprite_loop
         RTS
@@ -59,7 +55,7 @@ LOAD_LEFT_EYE_DATA
         LDX #63
 sprite_loop_left
         LDA EYE_LEFT_DATA,X
-        STA LEFT_EYE_PIXLES,X
+        STA $2E80,X
         DEX
         BNE sprite_loop_left
         RTS
@@ -68,7 +64,7 @@ LOAD_RIGHT_EYE_DATA
         LDX #63
 sprite_loop_right
         LDA EYE_RIGHT_DATA,X
-        STA RIGHT_EYE_PIXLES,X
+        STA $2E80,X
         DEX
         BNE sprite_loop_right
         RTS
@@ -86,6 +82,10 @@ SET_Y_LOCATION
 SET_SPRITE_COLOR
         STA $D027
         RTS
+
+PROGRAM_END
+        rts
+        
 
 
 

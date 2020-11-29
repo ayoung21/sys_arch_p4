@@ -12,6 +12,10 @@ RIGHT_EYE_PIXLES=LEFT_EYE_PIXLES+64
 PROGRAM_START
         JSR LOAD_FRONT_EYE_DATA
 
+        ; set sprite pointers
+        LDA #FRONT_EYE_PIXELS/64
+        STA $07F8
+
         LDA #1
         JSR SET_SPRITE_COLOR
 
@@ -31,29 +35,29 @@ PROGRAM_START
         STA $07FA
         ;; END OF DELETE
 
-        ; set sprite pointers
-        LDA #FRONT_EYE_PIXELS/64
-        STA $07F8
-
         ; show sprites
         LDA #$0001
         STA $D015
 
+
+PROGRAM_END
+        rts
+        
 ; SUB-ROUTINES
 LOAD_FRONT_EYE_DATA
         LDX #63
 sprite_loop
         LDA EYE_FRONT_DATA,X
-        STA $2E80,X
+        STA FRONT_EYE_PIXELS,X
         DEX
         BNE sprite_loop
         RTS
-; DELEETE
+
 LOAD_LEFT_EYE_DATA
         LDX #63
 sprite_loop_left
         LDA EYE_LEFT_DATA,X
-        STA $2E80,X
+        STA LEFT_EYE_PIXLES,X
         DEX
         BNE sprite_loop_left
         RTS
@@ -62,11 +66,10 @@ LOAD_RIGHT_EYE_DATA
         LDX #63
 sprite_loop_right
         LDA EYE_RIGHT_DATA,X
-        STA $2E80,X
+        STA RIGHT_EYE_PIXLES,X
         DEX
         BNE sprite_loop_right
         RTS
-; end of delete
 
 SET_X_LOCATION
         STA $D000       ; X position sprite #0 set on 44
@@ -80,12 +83,6 @@ SET_Y_LOCATION
 SET_SPRITE_COLOR
         STA $D027
         RTS
-
-PROGRAM_END
-        rts
-        
-
-
 
 EYE_FRONT_DATA
 ; eye_front
