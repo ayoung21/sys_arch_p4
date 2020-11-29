@@ -6,9 +6,11 @@
 
 
 *=$0900
-FRONT_EYE_PIXELS=$2E80
-LEFT_EYE_PIXLES=FRONT_EYE_PIXELS+64
-RIGHT_EYE_PIXLES=LEFT_EYE_PIXLES+64
+; FRONT_EYE_PIXELS=$2E80
+; LEFT_EYE_PIXLES=$2F00
+; RIGHT_EYE_PIXLES=$3A00
+;LEFT_EYE_PIXLES=FRONT_EYE_PIXELS+64
+;RIGHT_EYE_PIXLES=LEFT_EYE_PIXLES+64
 PROGRAM_START
         JSR SETUP_INTERRUPT
         JSR LOAD_FRONT_EYE_DATA
@@ -16,21 +18,22 @@ PROGRAM_START
         JSR LOAD_RIGHT_EYE_DATA
 
         ; set sprite pointers
-        LDA #FRONT_EYE_PIXELS/64
-        STA $07F8
+        ; LDA #$2E80/64
+        ; STA $07F8
+        JSR LOOK_STRAIGHT_BEGINNING
 
         LDA #1
         JSR SET_SPRITE_COLOR
 
-        LDA #44
+        LDA #45
         JSR SET_X_LOCATION
 
         LDA #60
         JSR SET_Y_LOCATION
 
         
-        ; LDA #LEFT_EYE_PIXLES/64
-        ; STA $07F9
+        ; LDA #$2F00/64
+        ; STA $07F8
 
 
         ; LDA #RIGHT_EYE_PIXLES/64
@@ -48,53 +51,60 @@ COUNTER BYTE 00
         
 ; SUB-ROUTINES
 SETUP_INTERRUPT
-        SEI ; disable interrupes
-        LDA #<ANIMATION_ROUTINE ; loads low byte of ANIMATION_ROUTINE
-        STA $0314 ; stores low byte to interrupt
-        LDA #>ANIMATION_ROUTINE ; loads high byte
-        STA $0315 ; stores high byte to intterupt vector
-        CLI ; re-enable interrupts
-        RTS ; return
+        SEI 
+        LDA #<ANIMATION_ROUTINE
+        STA $0314
+        LDA #>ANIMATION_ROUTINE
+        STA $0315
+        CLI
+        RTS
 
 ANIMATION_ROUTINE
-        ; insert handler code here
-        LDX COUNTER
-        INX
-        STX COUNTER
-        CPX #0
+        LDA COUNTER
+        ADC #1
+        STA COUNTER
+        CMP #0
         BEQ LOOK_LEFT
-        CPX #64
+        CMP #64
         BEQ LOOK_STRAIGHT
-        CPX #128
+        CMP #128
         BEQ LOOK_RIGHT
-        CPX #192
+        CMP #192
         BEQ LOOK_STRAIGHT
-        JSR JUMP_TO_HANDLER
-
-LOOK_STRAIGHT
-        LDA #FRONT_EYE_PIXELS/64
-        STA $07F8
-        JSR JUMP_TO_HANDLER
-
-LOOK_RIGHT
-        LDA #RIGHT_EYE_PIXLES/64
-        STA $07F8
-        JSR JUMP_TO_HANDLER
-
-LOOK_LEFT
-        LDA #LEFT_EYE_PIXLES/64
-        STA $07F8
         JSR JUMP_TO_HANDLER
 
 JUMP_TO_HANDLER
         JMP $EA31
         RTS
 
+LOOK_STRAIGHT_BEGINNING
+        LDA #$2E80/64
+        STA $07F8  
+        RTS
+
+LOOK_STRAIGHT
+        LDA #$2E80/64
+        STA $07F8
+        JSR JUMP_TO_HANDLER
+
+LOOK_RIGHT
+        LDA #$3A00/64
+        STA $07F8
+        JSR JUMP_TO_HANDLER
+
+LOOK_LEFT
+        LDA #$2F00/64
+        STA $07F8
+        JSR JUMP_TO_HANDLER
+
+;JUMP_TO_HANDLER
+;        JMP $EA31
+
 LOAD_FRONT_EYE_DATA
         LDX #63
 sprite_loop
         LDA EYE_FRONT_DATA,X
-        STA FRONT_EYE_PIXELS,X
+        STA $2E80,X
         DEX
         BPL sprite_loop
         RTS
@@ -103,7 +113,7 @@ LOAD_LEFT_EYE_DATA
         LDX #63
 sprite_loop_left
         LDA EYE_LEFT_DATA,X
-        STA LEFT_EYE_PIXLES,X
+        STA $2F00,X
         DEX
         BPL sprite_loop_left
         RTS
@@ -112,14 +122,14 @@ LOAD_RIGHT_EYE_DATA
         LDX #63
 sprite_loop_right
         LDA EYE_RIGHT_DATA,X
-        STA RIGHT_EYE_PIXLES,X
+        STA $3A00,X
         DEX
         BPL sprite_loop_right
         RTS
 
 SET_X_LOCATION
         STA $D000       ; X position sprite #0 set on 44
-        LDA $D010       ; load X-MSB
+        LDA $D000       ; load X-MSB
         ORA #%00000001  ; set extra bit for sprite #5
         STA $D010       ; write X-MSB register
         RTS

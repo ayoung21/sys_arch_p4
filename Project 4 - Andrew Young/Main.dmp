@@ -6,242 +6,249 @@
 00006  0810             
 00007  0810             
 00008  0810             *=$0900
-00009  0900             FRONT_EYE_PIXELS=$2E80 
-00010  0900             LEFT_EYE_PIXLES=FRONT_EYE_PIXELS+64 
-00011  0900             RIGHT_EYE_PIXLES=LEFT_EYE_PIXLES+64 
-00012  0900             PROGRAM_START 
-00013  0900  20 27 09              JSR SETUP_INTERRUPT
-00014  0903  20 6A 09              JSR LOAD_FRONT_EYE_DATA
-00015  0906  20 76 09              JSR LOAD_LEFT_EYE_DATA
-00016  0909  20 82 09              JSR LOAD_RIGHT_EYE_DATA
-00017  090C             
-00018  090C                        ; SET SPRITE POINTERS
-00019  090C  A9 BA                 LDA #FRONT_EYE_PIXELS/64
-00020  090E  8D F8 07              STA $07F8
-00021  0911             
-00022  0911  A9 01                 LDA #1
-00023  0913  20 9E 09              JSR SET_SPRITE_COLOR
-00024  0916             
-00025  0916  A9 2C                 LDA #44
-00026  0918  20 8E 09              JSR SET_X_LOCATION
-00027  091B             
-00028  091B  A9 3C                 LDA #60
-00029  091D  20 9A 09              JSR SET_Y_LOCATION
-00030  0920             
-00031  0920                        
-00032  0920                        ; LDA #LEFT_EYE_PIXLES/64
-00033  0920                        ; STA $07F9
-00034  0920             
-00035  0920             
-00036  0920                        ; LDA #RIGHT_EYE_PIXLES/64
-00037  0920                        ; STA $07FA
-00038  0920             
-00039  0920                        ; SHOW SPRITES
-00040  0920  A9 01                 LDA #$0001
-00041  0922  8D 15 D0              STA $D015
-00042  0925             
-00043  0925             
-00044  0925             PROGRAM_END 
-00045  0925  60                    RTS
-00046  0926             
-00047  0926  00         COUNTER    BYTE 00
-00048  0927                        
-00049  0927             ; SUB-ROUTINES
-00050  0927             SETUP_INTERRUPT 
-00051  0927  78                    SEI ; DISABLE INTERRUPES
-00052  0928  A9 34                 LDA #<ANIMATION_ROUTINE ; LOADS LOW BYTE OF ANIMATION_ROUTINE
-00053  092A  8D 14 03              STA $0314 ; STORES LOW BYTE TO INTERRUPT
-00054  092D  A9 09                 LDA #>ANIMATION_ROUTINE ; LOADS HIGH BYTE
-00055  092F  8D 15 03              STA $0315 ; STORES HIGH BYTE TO INTTERUPT VECTOR
-00056  0932  58                    CLI ; RE-ENABLE INTERRUPTS
-00057  0933  60                    RTS ; RETURN
-00058  0934             
-00059  0934             ANIMATION_ROUTINE 
-00060  0934                        ; INSERT HANDLER CODE HERE
-00061  0934  AE 26 09              LDX COUNTER
-00062  0937  E8                    INX
-00063  0938  8E 26 09              STX COUNTER
-00064  093B  E0 00                 CPX #0
-00065  093D  F0 1F                 BEQ LOOK_LEFT
-00066  093F  E0 40                 CPX #64
-00067  0941  F0 0B                 BEQ LOOK_STRAIGHT
-00068  0943  E0 80                 CPX #128
-00069  0945  F0 0F                 BEQ LOOK_RIGHT
-00070  0947  E0 C0                 CPX #192
-00071  0949  F0 03                 BEQ LOOK_STRAIGHT
-00072  094B  20 66 09              JSR JUMP_TO_HANDLER
-00073  094E             
-00074  094E             LOOK_STRAIGHT 
-00075  094E  A9 BA                 LDA #FRONT_EYE_PIXELS/64
-00076  0950  8D F8 07              STA $07F8
-00077  0953  20 66 09              JSR JUMP_TO_HANDLER
-00078  0956             
-00079  0956             LOOK_RIGHT 
-00080  0956  A9 BC                 LDA #RIGHT_EYE_PIXLES/64
-00081  0958  8D F8 07              STA $07F8
-00082  095B  20 66 09              JSR JUMP_TO_HANDLER
-00083  095E             
-00084  095E             LOOK_LEFT
-00085  095E  A9 BB                 LDA #LEFT_EYE_PIXLES/64
-00086  0960  8D F8 07              STA $07F8
-00087  0963  20 66 09              JSR JUMP_TO_HANDLER
-00088  0966             
-00089  0966             JUMP_TO_HANDLER 
-00090  0966  4C 31 EA              JMP $EA31
-00091  0969  60                    RTS
-00092  096A             
-00093  096A             LOAD_FRONT_EYE_DATA 
-00094  096A  A2 3F                 LDX #63
-00095  096C             SPRITE_LOOP 
-00096  096C  BD A2 09              LDA EYE_FRONT_DATA,X
-00097  096F  9D 80 2E              STA FRONT_EYE_PIXELS,X
-00098  0972  CA                    DEX
-00099  0973  10 F7                 BPL SPRITE_LOOP
-00100  0975  60                    RTS
-00101  0976             
-00102  0976             LOAD_LEFT_EYE_DATA 
-00103  0976  A2 3F                 LDX #63
-00104  0978             SPRITE_LOOP_LEFT 
-00105  0978  BD E2 09              LDA EYE_LEFT_DATA,X
-00106  097B  9D C0 2E              STA LEFT_EYE_PIXLES,X
-00107  097E  CA                    DEX
-00108  097F  10 F7                 BPL SPRITE_LOOP_LEFT
-00109  0981  60                    RTS
-00110  0982             
-00111  0982             LOAD_RIGHT_EYE_DATA 
-00112  0982  A2 3F                 LDX #63
-00113  0984             SPRITE_LOOP_RIGHT 
-00114  0984  BD 22 0A              LDA EYE_RIGHT_DATA,X
-00115  0987  9D 00 2F              STA RIGHT_EYE_PIXLES,X
-00116  098A  CA                    DEX
-00117  098B  10 F7                 BPL SPRITE_LOOP_RIGHT
-00118  098D  60                    RTS
-00119  098E             
-00120  098E             SET_X_LOCATION 
-00121  098E  8D 00 D0              STA $D000       ; X POSITION SPRITE #0 SET ON 44
-00122  0991  AD 10 D0              LDA $D010       ; LOAD X-MSB
-00123  0994  09 01                 ORA #%00000001  ; SET EXTRA BIT FOR SPRITE #5
-00124  0996  8D 10 D0              STA $D010       ; WRITE X-MSB REGISTER
-00125  0999  60                    RTS
-00126  099A             SET_Y_LOCATION 
-00127  099A  8D 01 D0              STA $D001
-00128  099D  60                    RTS
-00129  099E             SET_SPRITE_COLOR 
-00130  099E  8D 27 D0              STA $D027
-00131  09A1  60                    RTS
-00132  09A2             
-00133  09A2             EYE_FRONT_DATA 
-00134  09A2             ; EYE_FRONT
-00135  09A2  00 7E 00              BYTE $00,$7E,$00
-00136  09A5  03 81 C0              BYTE $03,$81,$C0
-00137  09A8  0C 7E 30              BYTE $0C,$7E,$30
-00138  09AB  13 FF C8              BYTE $13,$FF,$C8
-00139  09AE  2F FF F4              BYTE $2F,$FF,$F4
-00140  09B1  2F FF F4              BYTE $2F,$FF,$F4
-00141  09B4  5F FF FA              BYTE $5F,$FF,$FA
-00142  09B7  5F C3 FA              BYTE $5F,$C3,$FA
-00143  09BA  5F 81 FA              BYTE $5F,$81,$FA
-00144  09BD  BF 00 FD              BYTE $BF,$00,$FD
-00145  09C0  BF 00 FD              BYTE $BF,$00,$FD
-00146  09C3  BF 00 FD              BYTE $BF,$00,$FD
-00147  09C6  5F 81 FA              BYTE $5F,$81,$FA
-00148  09C9  5F C3 FA              BYTE $5F,$C3,$FA
-00149  09CC  5F FF FA              BYTE $5F,$FF,$FA
-00150  09CF  2F FF F4              BYTE $2F,$FF,$F4
-00151  09D2  2F FF F4              BYTE $2F,$FF,$F4
-00152  09D5  13 FF C8              BYTE $13,$FF,$C8
-00153  09D8  0C 7E 30              BYTE $0C,$7E,$30
-00154  09DB  03 81 C0              BYTE $03,$81,$C0
-00155  09DE  00 7E 00              BYTE $00,$7E,$00
-00156  09E1  00                    BYTE $00
-00157  09E2             
-00158  09E2             EYE_LEFT_DATA 
-00159  09E2             ; EYE_LEFT
-00160  09E2  00 7E 00              BYTE $00,$7E,$00
-00161  09E5  03 81 C0              BYTE $03,$81,$C0
-00162  09E8  0C 7E 30              BYTE $0C,$7E,$30
-00163  09EB  13 FF C8              BYTE $13,$FF,$C8
-00164  09EE  2F FF F4              BYTE $2F,$FF,$F4
-00165  09F1  2F FF F4              BYTE $2F,$FF,$F4
-00166  09F4  5F FF FA              BYTE $5F,$FF,$FA
-00167  09F7  5C 7F FA              BYTE $5C,$7F,$FA
-00168  09FA  58 3F FA              BYTE $58,$3F,$FA
-00169  09FD  B8 3F FD              BYTE $B8,$3F,$FD
-00170  0A00  B8 3F FD              BYTE $B8,$3F,$FD
-00171  0A03  B8 3F FD              BYTE $B8,$3F,$FD
-00172  0A06  58 3F FA              BYTE $58,$3F,$FA
-00173  0A09  5C 7F FA              BYTE $5C,$7F,$FA
-00174  0A0C  5F FF FA              BYTE $5F,$FF,$FA
-00175  0A0F  2F FF F4              BYTE $2F,$FF,$F4
-00176  0A12  2F FF F4              BYTE $2F,$FF,$F4
-00177  0A15  13 FF C8              BYTE $13,$FF,$C8
-00178  0A18  0C 7E 30              BYTE $0C,$7E,$30
-00179  0A1B  03 81 C0              BYTE $03,$81,$C0
-00180  0A1E  00 7E 00              BYTE $00,$7E,$00
-00181  0A21  00                    BYTE $00
-00182  0A22             
-00183  0A22             EYE_RIGHT_DATA 
-00184  0A22             ; EYE RIGHT
-00185  0A22  00 7E 00              BYTE $00,$7E,$00
-00186  0A25  03 81 C0              BYTE $03,$81,$C0
-00187  0A28  0C 7E 30              BYTE $0C,$7E,$30
-00188  0A2B  13 FF C8              BYTE $13,$FF,$C8
-00189  0A2E  2F FF F4              BYTE $2F,$FF,$F4
-00190  0A31  2F FF F4              BYTE $2F,$FF,$F4
-00191  0A34  5F FF FA              BYTE $5F,$FF,$FA
-00192  0A37  5F FE 3A              BYTE $5F,$FE,$3A
-00193  0A3A  5F FC 1A              BYTE $5F,$FC,$1A
-00194  0A3D  BF FC 1D              BYTE $BF,$FC,$1D
-00195  0A40  BF FC 1D              BYTE $BF,$FC,$1D
-00196  0A43  BF FC 1D              BYTE $BF,$FC,$1D
-00197  0A46  5F FC 1A              BYTE $5F,$FC,$1A
-00198  0A49  5F FE 3A              BYTE $5F,$FE,$3A
-00199  0A4C  5F FF FA              BYTE $5F,$FF,$FA
-00200  0A4F  2F FF F4              BYTE $2F,$FF,$F4
-00201  0A52  2F FF F4              BYTE $2F,$FF,$F4
-00202  0A55  13 FF C8              BYTE $13,$FF,$C8
-00203  0A58  0C 7E 30              BYTE $0C,$7E,$30
-00204  0A5B  03 81 C0              BYTE $03,$81,$C0
-00205  0A5E  00 7E 00              BYTE $00,$7E,$00
-00206  0A61  00                    BYTE $00
-00207  0A62             
-00208  0A62             
+00009  0900             ; FRONT_EYE_PIXELS=$2E80
+00010  0900             ; LEFT_EYE_PIXLES=$2F00
+00011  0900             ; RIGHT_EYE_PIXLES=$3A00
+00012  0900             ;LEFT_EYE_PIXLES=FRONT_EYE_PIXELS+64
+00013  0900             ;RIGHT_EYE_PIXLES=LEFT_EYE_PIXLES+64
+00014  0900             PROGRAM_START 
+00015  0900  20 25 09              JSR SETUP_INTERRUPT
+00016  0903  20 6F 09              JSR LOAD_FRONT_EYE_DATA
+00017  0906  20 7B 09              JSR LOAD_LEFT_EYE_DATA
+00018  0909  20 87 09              JSR LOAD_RIGHT_EYE_DATA
+00019  090C             
+00020  090C                        ; SET SPRITE POINTERS
+00021  090C                        ; LDA #$2E80/64
+00022  090C                        ; STA $07F8
+00023  090C  20 51 09              JSR LOOK_STRAIGHT_BEGINNING
+00024  090F             
+00025  090F  A9 01                 LDA #1
+00026  0911  20 A3 09              JSR SET_SPRITE_COLOR
+00027  0914             
+00028  0914  A9 2D                 LDA #45
+00029  0916  20 93 09              JSR SET_X_LOCATION
+00030  0919             
+00031  0919  A9 3C                 LDA #60
+00032  091B  20 9F 09              JSR SET_Y_LOCATION
+00033  091E             
+00034  091E                        
+00035  091E                        ; LDA #$2F00/64
+00036  091E                        ; STA $07F8
+00037  091E             
+00038  091E             
+00039  091E                        ; LDA #RIGHT_EYE_PIXLES/64
+00040  091E                        ; STA $07FA
+00041  091E             
+00042  091E                        ; SHOW SPRITES
+00043  091E  A9 01                 LDA #$0001
+00044  0920  8D 15 D0              STA $D015
+00045  0923             
+00046  0923             
+00047  0923             PROGRAM_END 
+00048  0923  60                    RTS
+00049  0924             
+00050  0924  00         COUNTER    BYTE 00
+00051  0925                        
+00052  0925             ; SUB-ROUTINES
+00053  0925             SETUP_INTERRUPT 
+00054  0925  78                    SEI
+00055  0926  A9 32                 LDA #<ANIMATION_ROUTINE
+00056  0928  8D 14 03              STA $0314
+00057  092B  A9 09                 LDA #>ANIMATION_ROUTINE
+00058  092D  8D 15 03              STA $0315
+00059  0930  58                    CLI
+00060  0931  60                    RTS
+00061  0932             
+00062  0932             ANIMATION_ROUTINE 
+00063  0932  AD 24 09              LDA COUNTER
+00064  0935  69 01                 ADC #1
+00065  0937  8D 24 09              STA COUNTER
+00066  093A  C9 00                 CMP #0
+00067  093C  F0 29                 BEQ LOOK_LEFT
+00068  093E  C9 40                 CMP #64
+00069  0940  F0 15                 BEQ LOOK_STRAIGHT
+00070  0942  C9 80                 CMP #128
+00071  0944  F0 19                 BEQ LOOK_RIGHT
+00072  0946  C9 C0                 CMP #192
+00073  0948  F0 0D                 BEQ LOOK_STRAIGHT
+00074  094A  20 4D 09              JSR JUMP_TO_HANDLER
+00075  094D             
+00076  094D             JUMP_TO_HANDLER 
+00077  094D  4C 31 EA              JMP $EA31
+00078  0950  60                    RTS
+00079  0951             
+00080  0951             LOOK_STRAIGHT_BEGINNING 
+00081  0951  A9 BA                 LDA #$2E80/64
+00082  0953  8D F8 07              STA $07F8
+00083  0956  60                    RTS
+00084  0957             
+00085  0957             LOOK_STRAIGHT 
+00086  0957  A9 BA                 LDA #$2E80/64
+00087  0959  8D F8 07              STA $07F8
+00088  095C  20 4D 09              JSR JUMP_TO_HANDLER
+00089  095F             
+00090  095F             LOOK_RIGHT 
+00091  095F  A9 E8                 LDA #$3A00/64
+00092  0961  8D F8 07              STA $07F8
+00093  0964  20 4D 09              JSR JUMP_TO_HANDLER
+00094  0967             
+00095  0967             LOOK_LEFT
+00096  0967  A9 BC                 LDA #$2F00/64
+00097  0969  8D F8 07              STA $07F8
+00098  096C  20 4D 09              JSR JUMP_TO_HANDLER
+00099  096F             
+00100  096F             ;JUMP_TO_HANDLER
+00101  096F             ;        JMP $EA31
+00102  096F             
+00103  096F             LOAD_FRONT_EYE_DATA 
+00104  096F  A2 3F                 LDX #63
+00105  0971             SPRITE_LOOP 
+00106  0971  BD A7 09              LDA EYE_FRONT_DATA,X
+00107  0974  9D 80 2E              STA $2E80,X
+00108  0977  CA                    DEX
+00109  0978  10 F7                 BPL SPRITE_LOOP
+00110  097A  60                    RTS
+00111  097B             
+00112  097B             LOAD_LEFT_EYE_DATA 
+00113  097B  A2 3F                 LDX #63
+00114  097D             SPRITE_LOOP_LEFT 
+00115  097D  BD E7 09              LDA EYE_LEFT_DATA,X
+00116  0980  9D 00 2F              STA $2F00,X
+00117  0983  CA                    DEX
+00118  0984  10 F7                 BPL SPRITE_LOOP_LEFT
+00119  0986  60                    RTS
+00120  0987             
+00121  0987             LOAD_RIGHT_EYE_DATA 
+00122  0987  A2 3F                 LDX #63
+00123  0989             SPRITE_LOOP_RIGHT 
+00124  0989  BD 27 0A              LDA EYE_RIGHT_DATA,X
+00125  098C  9D 00 3A              STA $3A00,X
+00126  098F  CA                    DEX
+00127  0990  10 F7                 BPL SPRITE_LOOP_RIGHT
+00128  0992  60                    RTS
+00129  0993             
+00130  0993             SET_X_LOCATION 
+00131  0993  8D 00 D0              STA $D000       ; X POSITION SPRITE #0 SET ON 44
+00132  0996  AD 00 D0              LDA $D000       ; LOAD X-MSB
+00133  0999  09 01                 ORA #%00000001  ; SET EXTRA BIT FOR SPRITE #5
+00134  099B  8D 10 D0              STA $D010       ; WRITE X-MSB REGISTER
+00135  099E  60                    RTS
+00136  099F             
+00137  099F             SET_Y_LOCATION 
+00138  099F  8D 01 D0              STA $D001
+00139  09A2  60                    RTS
+00140  09A3             
+00141  09A3             SET_SPRITE_COLOR 
+00142  09A3  8D 27 D0              STA $D027
+00143  09A6  60                    RTS
+00144  09A7             
+00145  09A7             EYE_FRONT_DATA 
+00146  09A7             ; EYE_FRONT
+00147  09A7  00 7E 00              BYTE $00,$7E,$00
+00148  09AA  03 81 C0              BYTE $03,$81,$C0
+00149  09AD  0C 7E 30              BYTE $0C,$7E,$30
+00150  09B0  13 FF C8              BYTE $13,$FF,$C8
+00151  09B3  2F FF F4              BYTE $2F,$FF,$F4
+00152  09B6  2F FF F4              BYTE $2F,$FF,$F4
+00153  09B9  5F FF FA              BYTE $5F,$FF,$FA
+00154  09BC  5F C3 FA              BYTE $5F,$C3,$FA
+00155  09BF  5F 81 FA              BYTE $5F,$81,$FA
+00156  09C2  BF 00 FD              BYTE $BF,$00,$FD
+00157  09C5  BF 00 FD              BYTE $BF,$00,$FD
+00158  09C8  BF 00 FD              BYTE $BF,$00,$FD
+00159  09CB  5F 81 FA              BYTE $5F,$81,$FA
+00160  09CE  5F C3 FA              BYTE $5F,$C3,$FA
+00161  09D1  5F FF FA              BYTE $5F,$FF,$FA
+00162  09D4  2F FF F4              BYTE $2F,$FF,$F4
+00163  09D7  2F FF F4              BYTE $2F,$FF,$F4
+00164  09DA  13 FF C8              BYTE $13,$FF,$C8
+00165  09DD  0C 7E 30              BYTE $0C,$7E,$30
+00166  09E0  03 81 C0              BYTE $03,$81,$C0
+00167  09E3  00 7E 00              BYTE $00,$7E,$00
+00168  09E6  00                    BYTE $00
+00169  09E7             
+00170  09E7             EYE_LEFT_DATA 
+00171  09E7             ; EYE_LEFT
+00172  09E7  00 7E 00              BYTE $00,$7E,$00
+00173  09EA  03 81 C0              BYTE $03,$81,$C0
+00174  09ED  0C 7E 30              BYTE $0C,$7E,$30
+00175  09F0  13 FF C8              BYTE $13,$FF,$C8
+00176  09F3  2F FF F4              BYTE $2F,$FF,$F4
+00177  09F6  2F FF F4              BYTE $2F,$FF,$F4
+00178  09F9  5F FF FA              BYTE $5F,$FF,$FA
+00179  09FC  5C 7F FA              BYTE $5C,$7F,$FA
+00180  09FF  58 3F FA              BYTE $58,$3F,$FA
+00181  0A02  B8 3F FD              BYTE $B8,$3F,$FD
+00182  0A05  B8 3F FD              BYTE $B8,$3F,$FD
+00183  0A08  B8 3F FD              BYTE $B8,$3F,$FD
+00184  0A0B  58 3F FA              BYTE $58,$3F,$FA
+00185  0A0E  5C 7F FA              BYTE $5C,$7F,$FA
+00186  0A11  5F FF FA              BYTE $5F,$FF,$FA
+00187  0A14  2F FF F4              BYTE $2F,$FF,$F4
+00188  0A17  2F FF F4              BYTE $2F,$FF,$F4
+00189  0A1A  13 FF C8              BYTE $13,$FF,$C8
+00190  0A1D  0C 7E 30              BYTE $0C,$7E,$30
+00191  0A20  03 81 C0              BYTE $03,$81,$C0
+00192  0A23  00 7E 00              BYTE $00,$7E,$00
+00193  0A26  00                    BYTE $00
+00194  0A27             
+00195  0A27             EYE_RIGHT_DATA 
+00196  0A27             ; EYE RIGHT
+00197  0A27  00 7E 00              BYTE $00,$7E,$00
+00198  0A2A  03 81 C0              BYTE $03,$81,$C0
+00199  0A2D  0C 7E 30              BYTE $0C,$7E,$30
+00200  0A30  13 FF C8              BYTE $13,$FF,$C8
+00201  0A33  2F FF F4              BYTE $2F,$FF,$F4
+00202  0A36  2F FF F4              BYTE $2F,$FF,$F4
+00203  0A39  5F FF FA              BYTE $5F,$FF,$FA
+00204  0A3C  5F FE 3A              BYTE $5F,$FE,$3A
+00205  0A3F  5F FC 1A              BYTE $5F,$FC,$1A
+00206  0A42  BF FC 1D              BYTE $BF,$FC,$1D
+00207  0A45  BF FC 1D              BYTE $BF,$FC,$1D
+00208  0A48  BF FC 1D              BYTE $BF,$FC,$1D
+00209  0A4B  5F FC 1A              BYTE $5F,$FC,$1A
+00210  0A4E  5F FE 3A              BYTE $5F,$FE,$3A
+00211  0A51  5F FF FA              BYTE $5F,$FF,$FA
+00212  0A54  2F FF F4              BYTE $2F,$FF,$F4
+00213  0A57  2F FF F4              BYTE $2F,$FF,$F4
+00214  0A5A  13 FF C8              BYTE $13,$FF,$C8
+00215  0A5D  0C 7E 30              BYTE $0C,$7E,$30
+00216  0A60  03 81 C0              BYTE $03,$81,$C0
+00217  0A63  00 7E 00              BYTE $00,$7E,$00
+00218  0A66  00                    BYTE $00
+00219  0A67             
+00220  0A67             
 
-******* 21 Label(s) *******
-ANIMATION_ROUTINE = $0934 
-COUNTER = $0926 
-EYE_FRONT_DATA = $09A2 
-EYE_LEFT_DATA = $09E2 
-EYE_RIGHT_DATA = $0A22 
-JUMP_TO_HANDLER = $0966 
-LOAD_FRONT_EYE_DATA = $096A 
-LOAD_LEFT_EYE_DATA = $0976 
-LOAD_RIGHT_EYE_DATA = $0982 
-LOOK_LEFT = $095E 
-LOOK_RIGHT = $0956 
-LOOK_STRAIGHT = $094E 
-PROGRAM_END = $0925 
+******* 22 Label(s) *******
+ANIMATION_ROUTINE = $0932 
+COUNTER = $0924 
+EYE_FRONT_DATA = $09A7 
+EYE_LEFT_DATA = $09E7 
+EYE_RIGHT_DATA = $0A27 
+JUMP_TO_HANDLER = $094D 
+LOAD_FRONT_EYE_DATA = $096F 
+LOAD_LEFT_EYE_DATA = $097B 
+LOAD_RIGHT_EYE_DATA = $0987 
+LOOK_LEFT = $0967 
+LOOK_RIGHT = $095F 
+LOOK_STRAIGHT = $0957 
+LOOK_STRAIGHT_BEGINNING = $0951 
+PROGRAM_END = $0923 
 PROGRAM_START = $0900 
-SET_SPRITE_COLOR = $099E 
-SET_X_LOCATION = $098E 
-SET_Y_LOCATION = $099A 
-SETUP_INTERRUPT = $0927 
-sprite_loop = $096C 
-sprite_loop_left = $0978 
-sprite_loop_right = $0984 
+SET_SPRITE_COLOR = $09A3 
+SET_X_LOCATION = $0993 
+SET_Y_LOCATION = $099F 
+SETUP_INTERRUPT = $0925 
+sprite_loop = $0971 
+sprite_loop_left = $097D 
+sprite_loop_right = $0989 
 
 ******* 2 Unused label(s) *******
 PROGRAM_END
 PROGRAM_START
 
-******* 4 Variable(s) *******
-FRONT_EYE_PIXELS  = $2E80
-LEFT_EYE_PIXLES  = $2EC0
-RIGHT_EYE_PIXLES  = $2F00
+******* 1 Variable(s) *******
 tgt_c64  = $0001
-******* 4 Unused variables(s) *******
-FRONT_EYE_PIXELS
-LEFT_EYE_PIXLES
-RIGHT_EYE_PIXLES
+******* 1 Unused variables(s) *******
 tgt_c64
 
